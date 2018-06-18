@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
+    "bluebird": "^3.5.1",
     "express": "^4.16.3",
     "mysql": "^2.15.0",
     "nodemon": "^1.17.5",
@@ -11,7 +12,11 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js",
+    "dbcreate": "node db/dbCreate.js",
+    "dbinsert": "node db/dbInsert.js",
+    "dbdrop": "node db/dbDrop.js"
   },
   "repository": {
     "type": "git",

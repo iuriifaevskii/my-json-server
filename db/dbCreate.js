@@ -1,40 +1,51 @@
 const connection = require('./config');
+const Promise = require("bluebird");
 
-const createTablesQuery = `CREATE TABLE users (
-    id int NOT NULL AUTO_INCREMENT,
-    name varchar(255),
+const createUsersTable = `CREATE TABLE users (
+    id int NOT NULL AUTO_INCREMENT, 
+    name varchar(255), 
     username varchar(255),
-    email varchar(255),
-    website varchar(255),
-    company varchar(255),
+    email varchar(255), 
+    website varchar(255), 
+    company varchar(255), 
     PRIMARY KEY (id)
-);
+);`;
 
-CREATE TABLE posts (
+const createPostsTable = `CREATE TABLE posts (
     id int NOT NULL AUTO_INCREMENT,
     title varchar(255),
     body varchar(255),
     userId int,
     PRIMARY KEY (id),
     FOREIGN KEY (userId) REFERENCES users(id)
-);
+);`;
 
-CREATE TABLE comments (
+const createCommentsTable = `CREATE TABLE comments (
     id int NOT NULL AUTO_INCREMENT,
     name varchar(255),
     email varchar(255),
     body varchar(255),
     postId int,
     PRIMARY KEY (id),
-    FOREIGN KEY (postId) REFERENCES articles(id)
+    FOREIGN KEY (postId) REFERENCES posts(id)
 );`;
 
-connection.connect();
+const queryArray = [
+    createUsersTable,
+    createPostsTable,
+    createCommentsTable
+];
 
-connection.query(createTablesQuery, (err, rows, fields) => {
-    if (err) throw err;
-    console.log('created! success!');
-    res.send(rows);
-});
+Promise.each(queryArray, (itemQuery) => {
+    return createTable(itemQuery);
+})
+.then(() => console.log('All tables were created!'));
 
-connection.end();
+function createTable(itemQuery) {
+    return new Promise((resolve, reject) => {
+        connection.query(itemQuery, (err, rows, fields) => {
+            if (err) throw err;
+        });
+        resolve('ok');
+    });
+}

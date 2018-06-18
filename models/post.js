@@ -1,7 +1,7 @@
 const postModel = {};
 
 postModel.getPosts = () => {
-    return 'SELECT * FROM articles;';
+    return 'SELECT * FROM posts;';
 };
 
 module.exports = postModel;

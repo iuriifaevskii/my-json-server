@@ -5,6 +5,20 @@ fetch('/posts', {
 .then(response => response.json())
 .then(json => console.log(json));
 
+// get single post
+fetch('/posts/1000', {
+    method: 'GET',	
+})
+.then(response => response.json())
+.then(json => console.log(json))
+
+// get comments by post
+fetch('/posts/1000/comments', {
+    method: 'GET',	
+})
+.then(response => response.json())
+.then(json => console.log(json))
+
 // create post using test data
 fetch('/posts', {
     method: 'POST',

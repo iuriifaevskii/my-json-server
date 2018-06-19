@@ -5,9 +5,24 @@ const postController = {};
 
 postController.showPosts = (req, res) => {
     connection.query(postModel.getPosts(), (err, rows, fields) => {
+        if (err) throw err;
+        res.send(rows);
+    });
+};
+
+postController.showSinglePosts = (req, res) => {
+    const {sql, values} = postModel.getSinglePost(req.params.id);
+    connection.query(sql, values, (err, rows, fields) => {
+        if (err) throw err;
+        res.send(rows[0] || []);
+    });
+};
+
+postController.showCommentsByPost = (req, res) => {
+    const {sql, values} = postModel.getCommentsByPost(req.params.id);
+    connection.query(sql, values, (err, rows, fields) => {
         if (err) throw err
-        console.log('The articles: ', rows);
-        res.send(rows)
+        res.send(rows);
     });
 };
 
@@ -32,7 +47,7 @@ postController.deletePost = (req, res) => {
     const {sql, values} = postModel.removePost(id);console.log(sql)
     connection.query(sql, values, (err, results, fields) => {
         if (err) throw err;
-        res.send({removedPostId: id})
+        res.send({removedPostId: id});
     });
 };
 

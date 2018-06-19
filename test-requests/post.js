@@ -19,3 +19,25 @@ fetch('/posts', {
 })
 .then(response => response.json())
 .then(json => console.log(json));
+
+// update post
+fetch('/posts/1019', {
+    method: 'PUT',
+    body: JSON.stringify({
+        title: 'foo111',
+        body: 'basr222',
+        userId: 3000
+    }),
+    headers: {
+        "Content-type": "application/json; charset=UTF-8"
+    }
+})
+.then(response => response.json())
+.then(json => console.log(json))
+
+// remove post
+fetch('/posts/1020', {
+    method: 'DELETE'
+})
+.then(response => response.json())
+.then(json => console.log(json))

@@ -5,18 +5,25 @@ postModel.getPosts = () => {
 };
 
 postModel.addPost = ({title, body, userId}) => {
-    var sql = "INSERT INTO posts SET ?";
-    var values = {title, body, userId};
+    const sql = "INSERT INTO posts SET ?";
+    const values = {title, body, userId};
 
     return {sql, values}
 };
 
 postModel.editPost = ({title, body, userId}, id) => {
-    var sql = "UPDATE posts SET title = ?, body = ?, userId = ? WHERE id = ?";
-    var values = [
+    const sql = "UPDATE posts SET title = ?, body = ?, userId = ? WHERE id = ?";
+    const values = [
         title, body, userId, id
     ];
     
+    return {sql, values}
+};
+
+postModel.removePost = (id) => {
+    const sql = "DELETE FROM posts WHERE ?";
+    const values = {id};
+
     return {sql, values}
 };
 

@@ -27,4 +27,13 @@ postController.changePost = (req, res) => {
     });
 };
 
+postController.deletePost = (req, res) => {
+    const {id} = req.params;
+    const {sql, values} = postModel.removePost(id);console.log(sql)
+    connection.query(sql, values, (err, results, fields) => {
+        if (err) throw err;
+        res.send({removedPostId: id})
+    });
+};
+
 module.exports = postController;

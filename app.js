@@ -11,8 +11,10 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
 const postRouters = require('./routes/post');
+const userRouters = require('./routes/user');
 
 app.use(postRouters);
+app.use(userRouters);
 
 app.listen(port, () => {
     console.log(`Started on port ${port}`);
